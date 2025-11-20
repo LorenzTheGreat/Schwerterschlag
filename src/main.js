@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { BootScene } from './scenes/BootScene.js';
 import { GameScene } from './scenes/GameScene.js';
 
 const config = {
@@ -25,7 +26,7 @@ const config = {
       height: 1440
     }
   },
-  scene: [GameScene],
+  scene: [BootScene, GameScene],
   render: {
     pixelArt: true,
     antialias: false

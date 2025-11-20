@@ -30,9 +30,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setDrag(0.99);
 
     // Visuelle Darstellung
-    this.setTint(0x00ff00); // Grüne Spielerfarbe
-    this.displayWidth = 32;
-    this.displayHeight = 48;
+    this.setScale(0.8); // Skaliere Held.png passend
+    this.setDisplayOrigin(16, 24); // Zentrierung
   }
 
   update(inputManager) {
@@ -68,10 +67,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.state.canAttack = false;
     this.state.isAttacking = true;
 
-    // Animation
-    this.setTint(0xffff00);
-    this.scene.time.delayedCall(200, () => {
-      this.setTint(0x00ff00);
+    // Animation - subtilerer Effekt mit echtem Sprite
+    this.setScale(0.9);
+    this.scene.time.delayedCall(100, () => {
+      this.setScale(0.8);
     });
 
     // Cooldown
@@ -98,11 +97,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     const damage = this.state.isDefending ? amount * this.stats.defendReduction : amount;
     this.stats.hp -= damage;
     
-    // Visuelles Feedback
-    this.setTint(0xff0000);
-    this.scene.time.delayedCall(100, () => {
-      this.setTint(0x00ff00);
-    });
+    // Visuelles Feedback - Shake-Effekt
+    this.scene.cameras.main.shake(150, 0.005);
 
     return this.stats.hp <= 0;
   }
