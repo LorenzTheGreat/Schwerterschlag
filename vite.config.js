@@ -15,6 +15,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     minify: 'terser',
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          phaser: ['phaser']
+        }
+      }
+    },
     terserOptions: {
       compress: {
         passes: 2
